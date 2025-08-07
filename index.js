@@ -21,14 +21,9 @@ webPush.setVapidDetails(
 let subscriptions = [];
 
 app.post("/subscribe", (req, res) => {
-  const newSub = JSON.stringify(req.body);
-
-  const exists = subscriptions.find((sub) => JSON.stringify(sub) === newSub);
-  if (!exists) subscriptions.push(req.body);
-
+  subscriptions.push(req.body);
   res.status(201).json({});
 });
-
 
 app.post("/notify", (req, res) => {
   const { title, body } = req.body;
