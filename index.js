@@ -20,19 +20,13 @@ webPush.setVapidDetails(
 
 let subscriptions = [];
 
-
 app.post("/subscribe", (req, res) => {
-  const sub = req.body;
-  const exists = subscriptions.some(s => s.endpoint === sub.endpoint);
+  const newSub = JSON.stringify(req.body);
 
-  if (!exists) {
-    subscriptions.push(sub);
-    console.log("New subscription added");
-  } else {
-    console.log("Subscription already exists");
-  }
+  const exists = subscriptions.find((sub) => JSON.stringify(sub) === newSub);
+  if (!exists) subscriptions.push(req.body);
 
-  res.status(201).json({ success: true });
+  res.status(201).json({});
 });
 
 
